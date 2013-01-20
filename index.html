@@ -24,73 +24,110 @@
 
 <body>
 
-<div data-role="page">
+<div data-role="page" id="homepage">
 
     <div data-role="header">
         <h1>App Days BA</h1>
     </div><!-- /header -->
 
-    <div id="install">
-        <button>Install</button>
-    </div>
+    <div data-role="content" >  
 
-     <!-- Icon that will indicate whether you are online or offline - enabled if you are using offline/appcache (see above)  -->
-    <div id="online-status" title="Online"></div>
+        <h2>Ejemplo con jQuery Mobile</h2>
 
-    <div data-role="content">   
-        <p>Ejemplo con jQuery Mobile</p>
+        <h3>Install and Status</h3>
+
+        <div id="install">
+            <button>Install</button>
+        </div>
+
+         <!-- Icon that will indicate whether you are online or offline - enabled if you are using offline/appcache (see above)  -->
+        <div id="online-status" title="Online"></div>
+
+        <h3>Ejemplos</h3>
+        
+        <p><a href="#webactivities" data-role="button">WebActivities</a></p>
+        <p><a href="#webapis" data-role="button">WebAPIs</a></p>
     </div><!-- /content -->
-
-    <h2>WebActivities</h2>
-
-    <button id="pick-image">Pick image</button>
-    <div id="image-presenter"></div>
-
-    <button id="pick-anything">Pick anything</button>
-
-    <button id="record">Take picture</button>
-
-    <button id="dial">Dial number</button>
-
-    <button id="send-sms">Send SMS</button>
-
-    <button id="add-contact">Add contact</button>
-
-    <button id="share">Share URL</button>
-
-    <button id="share-image">Share Image</button>
-    <img id="image-to-share" src="images/logo64.png" alt="">
-
-    <button id="view-url">View URL</button>
-
-    <button id="compose-email">Compose mail</button>
-
-    <h2>WebAPIs</h2>
-
-    <button id="add-notification">Add notification</button>
-
-    <button id="lock-orientation">Orientation lock</button>
-
-    <button id="vibrate">Vibrate 2 sec</button>
-
-    <button id="add-alarm">Add alarm</button>
-
-    <button id="check-connection">Check connection</button>
-    <div id="connection-display"></div>
-
-    <button id="check-battery">Check battery</button>
-    <div id="battery-display"></div>
 
     <div data-role="footer">
         <button id="save-bookmark">Save bookmark</button>
         <button id="reload" class="reload">Reload</button>
     </div>
 
-    <script type="text/javascript" src="js/base.js"></script>
-    <script type="text/javascript" src="js/webapp.js"></script>
-    <script type="text/javascript" src="js/offline.js"></script>
-
 </div><!-- /page -->
+
+<div data-role="page" id="webactivities" data-theme="a">
+
+    <div data-role="header">
+        <h1>Ejemplos</h1>
+    </div><!-- /header -->
+
+    <div data-role="content" data-theme="a">    
+
+        <h2>WebActivities</h2>
+
+        <button id="pick-image">Pick image</button>
+        <div id="image-presenter"></div>
+
+        <button id="pick-anything">Pick anything</button>
+
+        <button id="record">Take picture</button>
+
+        <button id="dial">Dial number</button>
+
+        <button id="send-sms">Send SMS</button>
+
+        <button id="add-contact">Add contact</button>
+
+        <button id="share">Share URL</button>
+
+        <button id="share-image">Share Image</button>
+        <img id="image-to-share" src="images/logo64.png" alt="">
+
+        <button id="view-url">View URL</button>
+
+        <button id="compose-email">Compose mail</button>
+
+        <p><a href="#homepage" data-direction="reverse" data-role="button" data-theme="b">Volver</a></p> 
+        
+    </div><!-- /content -->
+    
+</div><!-- /page -->
+
+<div data-role="page" id="webapis" data-theme="a">
+
+    <div data-role="header">
+        <h1>Ejemplos</h1>
+    </div><!-- /header -->
+
+    <div data-role="content" data-theme="a">    
+
+        <h2>WebAPIs</h2>
+
+        <button id="add-notification">Add notification</button>
+
+        <button id="lock-orientation">Orientation lock</button>
+
+        <button id="vibrate">Vibrate 2 sec</button>
+
+        <button id="add-alarm">Add alarm</button>
+
+        <button id="check-connection">Check connection</button>
+        <div id="connection-display"></div>
+
+        <button id="check-battery">Check battery</button>
+        <div id="battery-display"></div>
+
+        <p><a href="#homepage" data-direction="reverse" data-role="button" data-theme="b">Volver</a></p> 
+        
+    </div><!-- /content -->
+    
+</div><!-- /page -->
+
+
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="js/webapp.js"></script>
+<script type="text/javascript" src="js/offline.js"></script>
 
 </body>
 </html>
