@@ -17,14 +17,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"> 
     <title>Firefox OS App Days Boilerplate</title> 
-    <link rel="stylesheet" href="/css/jquery.mobile-1.2.0.min.css" />
-    <script src="/js/jquery-1.8.2.min.js"></script>
-    <script src="/js/jquery.mobile-1.2.0.min.js"></script>
+    <link rel="stylesheet" href="http://pablocubi.co/mozilla/ffosapp/css/jquery.mobile-1.2.0.min.css" />
+    <script src="http://pablocubi.co/mozilla/ffosapp/js/jquery-1.8.2.min.js"></script>
+    <script src="http://pablocubi.co/mozilla/ffosapp/js/jquery.mobile-1.2.0.min.js"></script>
+    <style type="text/css">
+        #timer {
+            text-align: center;
+            font-size: 10em;
+            text-shadow: 0px 2px 5px black;
+            padding: 30px;
+        }
+    </style>
 </head>
 
 <body>
 
-<div data-role="page" id="homepage">
+<div data-role="page" id="homepage" data-theme="a">
 
     <div data-role="header">
         <h1>App Days BA</h1>
@@ -32,102 +40,92 @@
 
     <div data-role="content" >  
 
-        <h2>Ejemplo con jQuery Mobile</h2>
-
-        <h3>Install and Status</h3>
+        <h2>Fake Callz v34</h2>
+        <h3>Gets you out of boring conversations.</h3>
 
         <div id="install">
             <button>Install</button>
         </div>
 
+        <div data-role="fieldcontain">
+            <label for="slider">Countdown (secs):</label>
+            <input type="range" name="slider" id="slider" value="5" min="5" max="120"  />
+        </div>
+
          <!-- Icon that will indicate whether you are online or offline - enabled if you are using offline/appcache (see above)  -->
         <div id="online-status" title="Online"></div>
-
-        <h3>Ejemplos</h3>
         
-        <p><a href="#webactivities" data-role="button">WebActivities</a></p>
-        <p><a href="#webapis" data-role="button">WebAPIs</a></p>
+        <button id="start" data-role="button">Fake call</button>
+        
     </div><!-- /content -->
-
-    <div data-role="footer">
-        <button id="save-bookmark">Save bookmark</button>
-        <button id="reload" class="reload">Reload</button>
-    </div>
 
 </div><!-- /page -->
 
-<div data-role="page" id="webactivities" data-theme="a">
+<div data-role="page" id="timerpage" data-theme="a">
 
     <div data-role="header">
-        <h1>Ejemplos</h1>
+        <h1>Cuenta regresiva</h1>
     </div><!-- /header -->
 
     <div data-role="content" data-theme="a">    
 
-        <h2>WebActivities</h2>
+        <div id="timer">
+            0
+        </div>
 
-        <button id="pick-image">Pick image</button>
-        <div id="image-presenter"></div>
-
-        <button id="pick-anything">Pick anything</button>
-
-        <button id="record">Take picture</button>
-
-        <button id="dial">Dial number</button>
-
-        <button id="send-sms">Send SMS</button>
-
-        <button id="add-contact">Add contact</button>
-
-        <button id="share">Share URL</button>
-
-        <button id="share-image">Share Image</button>
-        <img id="image-to-share" src="images/logo64.png" alt="">
-
-        <button id="view-url">View URL</button>
-
-        <button id="compose-email">Compose mail</button>
-
-        <p><a href="#homepage" data-direction="reverse" data-role="button" data-theme="b">Volver</a></p> 
+        <p><a href="#homepage" id="cancel" data-direction="reverse" data-role="button" data-theme="b">Cancel</a></p> 
         
     </div><!-- /content -->
     
 </div><!-- /page -->
 
-<div data-role="page" id="webapis" data-theme="a">
-
-    <div data-role="header">
-        <h1>Ejemplos</h1>
-    </div><!-- /header -->
-
-    <div data-role="content" data-theme="a">    
-
-        <h2>WebAPIs</h2>
-
-        <button id="add-notification">Add notification</button>
-
-        <button id="lock-orientation">Orientation lock</button>
-
-        <button id="vibrate">Vibrate 2 sec</button>
-
-        <button id="add-alarm">Add alarm</button>
-
-        <button id="check-connection">Check connection</button>
-        <div id="connection-display"></div>
-
-        <button id="check-battery">Check battery</button>
-        <div id="battery-display"></div>
-
-        <p><a href="#homepage" data-direction="reverse" data-role="button" data-theme="b">Volver</a></p> 
-        
-    </div><!-- /content -->
-    
-</div><!-- /page -->
-
+<div data-role="page" id="fakeCall" data-theme="a">
+    <img src="images/fakecall.jpg" width="100%" height="100%" id="callscreen">
+</div>
 
 <script type="text/javascript" src="js/base.js"></script>
-<script type="text/javascript" src="js/webapp.js"></script>
-<script type="text/javascript" src="js/offline.js"></script>
+<script type="text/javascript">
+$(document).bind('pageinit', function() {
+    $('#start').on('click', function() {
+        var countDownStart = $("#slider").val();
+        $('#timer').html(countDownStart);
+        $.mobile.changePage($('#timerpage'), { transition: "slideup"} );
+        
+        var myAudio = new Audio('ringtones/ring.ogg');
+
+        var countInterval = window.setInterval(function() {
+            if (countDownStart > 0) {
+                $.mobile.changePage($('#timerpage'), { transition: "slideup"} );
+                $('#timer').html(countDownStart--);
+            } else {
+                stop();
+                $.mobile.changePage($('#fakeCall'), { transition: "slideup"} );
+                $(myAudio).bind('ended', function()  {
+                    myAudio.currentTime = 0;
+                    myAudio.play();
+                    // Patrón de vibrado [tiempo, pausa,...]
+                    navigator.vibrate([1000, 1000]);
+                });
+                myAudio.play();
+
+            }
+        }, 1000);
+
+        function stop() {
+            window.clearInterval(countInterval);
+        }
+        $('#cancel').on('click', function() {
+            stop();
+        });
+        $('#callscreen').on('click', function() {
+            stop();
+            $.mobile.changePage($('#homepage'), { transition: "slideup"} );
+            myAudio.pause();
+            navigator.vibrate(0);
+        });
+    });
+});
+</script>
 
 </body>
 </html>
