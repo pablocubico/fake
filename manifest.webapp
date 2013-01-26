@@ -1,10 +1,10 @@
 {
     "version": "1",
     "name": "Fake Callz",
-    "launch_path": "/mozilla/ffosapp/",
+    "launch_path": "/fake/",
     "description": "Fake call simulator",
     "icons": {
-        "60": "/mozilla/ffosapp/images/ffosappicon.png"
+        "60": "/fake/images/ffosappicon.png"
     },
     "developer": {
         "name": "Pablo Cúbico",
